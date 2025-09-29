@@ -1,0 +1,115 @@
+{
+  "info": {
+    "_postman_id": "quiztopia-api-full",
+    "name": "Quiztopia API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create User",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"mandus\",\n  \"email\": \"mandus@example.com\",\n  \"password\": \"secret123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/createUser",
+          "host": ["http://localhost:3000"],
+          "path": ["createUser"]
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"email\": \"mandus@example.com\", \"password\": \"secret123\" }"
+        },
+        "url": {
+          "raw": "http://localhost:3000/login",
+          "host": ["http://localhost:3000"],
+          "path": ["login"]
+        }
+      }
+    },
+    {
+      "name": "Create Quiz",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer <token>" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"quizName\": \"stockholm\" }"
+        },
+        "url": {
+          "raw": "http://localhost:3000/createQuiz",
+          "host": ["http://localhost:3000"],
+          "path": ["createQuiz"]
+        }
+      }
+    },
+    {
+      "name": "Add Question",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer <token>" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"quizName\": \"stockholm\",\n  \"question\": \"How Many pepole live here?\",\n  \"answer\": \"987845875\",\n  \"location\": { \"latitude\": \"6561\", \"longitude\": \"12121\" }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/addQuestion",
+          "host": ["http://localhost:3000"],
+          "path": ["addQuestion"]
+        }
+      }
+    },
+    {
+      "name": "Get All Quizzes",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer <token>" }],
+        "url": {
+          "raw": "http://localhost:3000/allquizzes",
+          "host": ["http://localhost:3000"],
+          "path": ["allquizzes"]
+        }
+      }
+    },
+    {
+      "name": "Get User Quiz",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer <token>" }],
+        "url": {
+          "raw": "http://localhost:3000/<userId>/<quizId>",
+          "host": ["http://localhost:3000"],
+          "path": ["<userId>", "<quizId>"]
+        }
+      }
+    },
+    {
+      "name": "Delete Quiz",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Authorization", "value": "Bearer <token>" }],
+        "url": {
+          "raw": "http://localhost:3000/<quizId>",
+          "host": ["http://localhost:3000"],
+          "path": ["<quizId>"]
+        }
+      }
+    }
+  ]
+}
