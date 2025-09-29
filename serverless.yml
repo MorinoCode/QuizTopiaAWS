@@ -1,0 +1,112 @@
+org: mortezajs24
+service: serverlessApi
+
+provider:
+  name: aws
+  region: eu-north-1
+  runtime: nodejs20.x
+  environment:
+    TABLE_NAME: QuizTopiTableFinal
+    JWT_SECRET_CODE: thereIsNoCode:)
+
+resources:
+  Resources:
+    QuizTopiTableFinal:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: QuizTopiTableFinal
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+          - AttributeName: SK
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: userEmail
+            AttributeType: S
+          - AttributeName: type
+            AttributeType: S
+          - AttributeName: quizCreatorId
+            AttributeType: S
+
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE
+        GlobalSecondaryIndexes:
+          - IndexName: UserIdIndex
+            KeySchema:
+              - AttributeName: userId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: EmailIndex
+            KeySchema:
+              - AttributeName: userEmail
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: typeIndex
+            KeySchema:
+              - AttributeName: type
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: QuizCreatorIdIndex
+            KeySchema:
+              - AttributeName: quizCreatorId
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+
+functions:
+  createUser:
+    handler: functions/createUser/index.handler
+    events:
+      - httpApi:
+          path: /createUser
+          method: post
+
+  login:
+    handler: functions/login/index.handler
+    events:
+      - httpApi:
+          path: /login
+          method: post
+
+  createQuiz:
+    handler: functions/createQuiz/index.handler
+    events:
+      - httpApi:
+          path: /createQuiz
+          method: post
+
+  addQuestion:
+    handler: functions/addQuestion/index.handler
+    events:
+      - httpApi:
+          path: /addQuestion
+          method: post
+
+  getAllQuizzes:
+    handler: functions/getAllQuizzes/index.handler
+    events:
+      - httpApi:
+          path: /allquizzes
+          method: get
+
+  getUserQuiz:
+    handler: functions/getUserQuiz/index.handler
+    events:
+      - httpApi:
+          path: /{userId}/{quizId}
+          method: get
+
+  deleteQuiz:
+    handler: functions/deleteQuiz/index.handler
+    events:
+      - httpApi:
+          path: /{quizId}
+          method: delete
