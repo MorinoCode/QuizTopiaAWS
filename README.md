@@ -72,8 +72,8 @@ serverless deploy
 
 | Endpoint             | Method | Description                           | Body / Params                                                                        |
 | -------------------- | ------ | ------------------------------------- | ------------------------------------------------------------------------------------ |
-| `/createUser`        | POST   | Create a new user                     | `{ "username": "morteza", "email": "morteza@example.com", "password": "1234" }`      |
-| `/login`             | POST   | Login and get JWT token               | `{ "email": "morteza@example.com", "password": "1234" }`                             |
+| `/createUser`        | POST   | Create a new user                     | `{ "username": "morteza", "email": "morteza@example.com", "password": "S1234!" }`      |
+| `/login`             | POST   | Login and get JWT token               | `{ "email": "morteza@example.com", "password": "S1234!" }`                             |
 | `/createQuiz`        | POST   | Create a new quiz                     | `{ "quizName": "stockholm" }`                                                        |
 | `/addQuestion`       | POST   | Add a question to a quiz              | `{ "quizName": "stockholm", "question": "Do you like Stockholm?", "answer": "yes" }` |
 | `/allquizzes`        | GET    | Get all quizzes                       | None                                                                                 |
