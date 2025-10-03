@@ -12,7 +12,7 @@
         "header": [{ "key": "Content-Type", "value": "application/json" }],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"username\": \"mandus\",\n  \"email\": \"mandus@example.com\",\n  \"password\": \"secret123\"\n}"
+          "raw": "{\n  \"username\": \"mandus\",\n  \"email\": \"mandus@example.com\",\n  \"password\": \"Secret123!\"\n}"
         },
         "url": {
           "raw": "http://localhost:3000/createUser",
@@ -28,7 +28,7 @@
         "header": [{ "key": "Content-Type", "value": "application/json" }],
         "body": {
           "mode": "raw",
-          "raw": "{ \"email\": \"mandus@example.com\", \"password\": \"secret123\" }"
+          "raw": "{ \"email\": \"mandus@example.com\", \"password\": \"Secret123!\" }"
         },
         "url": {
           "raw": "http://localhost:3000/login",
