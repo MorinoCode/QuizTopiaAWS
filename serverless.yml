@@ -8,6 +8,35 @@ provider:
   environment:
     TABLE_NAME: QuizTopiTableFinal
     JWT_SECRET_CODE: thereIsNoCode:)
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:BatchWriteItem
+            - dynamodb:BatchGetItem
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:DescribeTable
+          Resource:
+            - !GetAtt QuizTopiTableFinal.Arn
+
+            - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/QuizTopiTableFinal/index/*
+
+        - Effect: Allow
+          Action:
+            - logs:CreateLogGroup
+          Resource: "*"
+        - Effect: Allow
+          Action:
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+          Resource:
+            - arn:aws:logs:${aws:region}:${aws:accountId}:log-group:/aws/lambda/${self:service}-${sls:stage}-*:*
 
 resources:
   Resources:
@@ -29,7 +58,6 @@ resources:
             AttributeType: S
           - AttributeName: quizCreatorId
             AttributeType: S
-
         KeySchema:
           - AttributeName: PK
             KeyType: HASH
@@ -110,3 +138,17 @@ functions:
       - httpApi:
           path: /{quizId}
           method: delete
+
+  submitScore:
+    handler: functions/submitScore/index.handler
+    events:
+      - httpApi:
+          path: /score
+          method: post
+
+  getLeaderboard:
+    handler: functions/getLeaderboard/index.handler
+    events:
+      - httpApi:
+          path: /leaderboard/{quizId}
+          method: get
